@@ -7,34 +7,53 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
-import { useSignin } from "./useSignin";
+import { useSignup } from "./useSignup";
 import PasswordInput from "src/ui/PasswordInput";
 
-const SigninForm = () => {
+const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signin, isPending: isLoading } = useSignin();
+  const { signup, isPending: isLoading } = useSignup();
   const [errors, setErrors] = useState({});
 
-  const handleSignIn = () => {
+  // Regex for email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //regex for 6 lenght passwrod
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+
+  const handleSignUp = () => {
     const validationErrors = {};
 
-    if (!email) validationErrors.email = "Email is required";
-    if (!password) validationErrors.password = "Password is required";
+    // Validate email field
+    if (!email) {
+      validationErrors.email = "Email is required";
+    } else if (!emailRegex.test(email)) {
+      validationErrors.email = "Please enter a valid email address";
+    }
 
+    // Validate password field
+    if (!password) validationErrors.password = "Password is required";
+    else if (!passwordRegex.test(password))
+      validationErrors.password =
+        "Password must be at least 6 characters long and contain a letter and a number";
+    
+
+    // Check if there are validation errors
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
+
     const data = {
       email,
       password,
     };
 
-    signin(data, {
+    signup(data, {
       onSuccess: () => {
         setEmail("");
         setPassword("");
+        setErrors({});
       },
     });
   };
@@ -76,12 +95,13 @@ const SigninForm = () => {
         size="lg"
         mt={4}
         rounded="xl"
-        onClick={handleSignIn}
+        onClick={handleSignUp}
+        isDisabled={isLoading}
       >
-        {isLoading ? <Spinner /> : "Sign In"}
+        {isLoading ? <Spinner /> : "Sign Up"}
       </Button>
     </>
   );
 };
 
-export default SigninForm;
+export default SignupForm;

@@ -20,47 +20,41 @@ import {
   MenuList,
   Collapse,
 } from "@chakra-ui/react";
-import { FiMenu, FiChevronDown } from "react-icons/fi";
-import { FaShop } from "react-icons/fa6";
-import { RiArrowDropDownLine, RiLogoutBoxRLine } from "react-icons/ri";
+import {
+  FiMenu,
+  FiChevronDown,
+  FiUsers,
+  FiUserPlus,
+  FiEdit,
+} from "react-icons/fi";
 
-import { BsFillCartDashFill, BsFillCartPlusFill } from "react-icons/bs";
+import {
+  RiArrowDropDownLine,
+  RiLogoutBoxRLine,
+  RiSchoolLine,
+} from "react-icons/ri";
+import { MdOutlineLocationOn, MdOutlineAddLocationAlt } from "react-icons/md";
+import { TbMapPinMinus } from "react-icons/tb";
+import { BiBook, BiBookAdd } from "react-icons/bi";
+import { IoDocumentsOutline } from "react-icons/io5";
+import { FaUsers } from "react-icons/fa";
 
 import { NavLink } from "react-router-dom";
 // import { useLogout } from "src/features/auth/useLogout";
 // import { useUser } from "src/features/auth/useUser";
 import { useState } from "react";
-import { LuBookKey } from "react-icons/lu";
-import { HiOutlineDocumentReport, HiShoppingCart } from "react-icons/hi";
-import { PiDevicesFill } from "react-icons/pi";
-import { FaUserCog } from "react-icons/fa";
+import { FaUsersCog } from "react-icons/fa";
+import { HiShoppingCart } from "react-icons/hi";
+import { BsFillCartDashFill, BsFillCartPlusFill } from "react-icons/bs";
+import { RiShoppingCartFill } from "react-icons/ri";
+import { RiLuggageCartFill } from "react-icons/ri";
 
-const AdminLinkItems = [
+const LinkItems = [
   {
-    name: "Products",
-    icon: HiShoppingCart,
+    name: "Users",
+    icon: FaUsers,
     subItems: [
-      {
-        name: "List Product",
-        icon: BsFillCartPlusFill,
-        path: "/users/products/create",
-      },
-      {
-        name: "My Products",
-        icon: BsFillCartDashFill,
-        path: "/users/products/all",
-      },
-    ],
-  },
-  {
-    name: "MarketPlace",
-    icon: FaShop,
-    subItems: [
-      {
-        name: "Explore",
-        icon: PiDevicesFill,
-        path: "/users/marketplace",
-      },
+      { name: "View Users", icon: FaUsersCog, path: "/admin/users/all" },
     ],
   },
 ];
@@ -90,8 +84,7 @@ const SidebarContent = ({ onClose, user, ...rest }) => {
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-
-      {AdminLinkItems.map((link) => (
+      {LinkItems.map((link) => (
         <Box key={link.name} mt={4}>
           <Flex
             p="4"
@@ -136,8 +129,11 @@ const SidebarContent = ({ onClose, user, ...rest }) => {
           )}
         </Box>
       ))}
-      <NavItem icon={FaUserCog} to="/users/profile">
-        Profile
+      <NavItem icon={RiShoppingCartFill} to="/admin/products/">
+        Products
+      </NavItem>
+      <NavItem icon={RiLuggageCartFill} to="/admin/products/manage">
+        Manage Products
       </NavItem>
     </Box>
   );
@@ -260,7 +256,7 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
   );
 };
 
-const Sidebar = () => {
+const AdminSidebar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   //   const { user } = useUser();
 
@@ -289,4 +285,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default AdminSidebar;

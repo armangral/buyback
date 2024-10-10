@@ -1,11 +1,11 @@
 import { Box, Container, useColorModeValue } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "src/ui/sidebar";
+import AdminSidebar from "src/ui/AdminSidebar";
 
-const DashoardLayout = () => {
+const AdminLayout = () => {
   return (
     <Container maxW="container.3xl" p={4} className="min-h-screen">
-      <Sidebar />
+      <AdminSidebar />
       <Box minH="100vh" bg={useColorModeValue("white")}>
         <Box ml={{ base: 0, md: 60 }} p="4">
           <Outlet />
@@ -15,4 +15,4 @@ const DashoardLayout = () => {
   );
 };
 
-export default DashoardLayout;
+export default AdminLayout;
