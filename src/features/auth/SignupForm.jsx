@@ -18,8 +18,6 @@ const SignupForm = () => {
 
   // Regex for email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //regex for 6 lenght passwrod
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
 
   const handleSignUp = () => {
     const validationErrors = {};
@@ -30,13 +28,6 @@ const SignupForm = () => {
     } else if (!emailRegex.test(email)) {
       validationErrors.email = "Please enter a valid email address";
     }
-
-    // Validate password field
-    if (!password) validationErrors.password = "Password is required";
-    else if (!passwordRegex.test(password))
-      validationErrors.password =
-        "Password must be at least 6 characters long and contain a letter and a number";
-    
 
     // Check if there are validation errors
     if (Object.keys(validationErrors).length > 0) {
