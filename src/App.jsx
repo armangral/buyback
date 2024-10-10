@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import DashoardLayout from "./layouts/DashoardLayout";
 import ClientDashboardPage from "./pages/user/dashboard";
+import AddProductPage from "./pages/user/product/AddProductPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,7 +22,8 @@ const App = () => {
 
           {/* <Route element={<SuperAdminProtectedRoute />}> */}
           <Route element={<DashoardLayout />}>
-            <Route path="/dashboard" element={<ClientDashboardPage />} />
+            <Route path="/user/dashboard" element={<ClientDashboardPage />} />
+            <Route path="/user/products/create" element={<AddProductPage />} />
           </Route>
           {/* </Route> */}
         </Routes>
