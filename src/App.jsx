@@ -1,34 +1,13 @@
-import { useEffect, useState } from "react";
-import { supabase } from "./services/supabase";
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import AddProduct from "./pages/addProduct/addProduct";
 
 const App = () => {
-  const [connectionStatus, setConnectionStatus] = useState(null);
-
-  useEffect(() => {
-    const checkSupabaseConnection = async () => {
-      // Try fetching data from a simple table or making any valid API request
-      const { data, error } = await supabase
-        .from("example")
-        .select("*")
-        .limit(1);
-
-      if (error) {
-        console.error("Supabase connection failed:", error);
-        setConnectionStatus("Failed to connect to Supabase");
-      } else {
-        console.log("Supabase is connected:", data);
-        setConnectionStatus("Successfully connected to Supabase");
-      }
-    };
-
-    checkSupabaseConnection();
-  }, []);
-
   return (
-    <div>
-      <h1>Supabase Connection Status</h1>
-      <p>{connectionStatus || "Checking connection..."}</p>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<AddProduct />} />
+      </Routes>
+    </Router>
   );
 };
 
