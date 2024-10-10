@@ -1,34 +1,53 @@
-import { useEffect, useState } from "react";
-import { supabase } from "./services/supabase";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "react-hot-toast";
+import DashoardLayout from "./layouts/DashoardLayout";
+import ClientDashboardPage from "./pages/user/dashboard";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 0,
+    },
+  },
+});
 
 const App = () => {
-  const [connectionStatus, setConnectionStatus] = useState(null);
-
-  useEffect(() => {
-    const checkSupabaseConnection = async () => {
-      // Try fetching data from a simple table or making any valid API request
-      const { data, error } = await supabase
-        .from("example")
-        .select("*")
-        .limit(1);
-
-      if (error) {
-        console.error("Supabase connection failed:", error);
-        setConnectionStatus("Failed to connect to Supabase");
-      } else {
-        console.log("Supabase is connected:", data);
-        setConnectionStatus("Successfully connected to Supabase");
-      }
-    };
-
-    checkSupabaseConnection();
-  }, []);
-
   return (
-    <div>
-      <h1>Supabase Connection Status</h1>
-      <p>{connectionStatus || "Checking connection..."}</p>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Navigate replace to="/signin" />} />
+
+          {/* <Route element={<SuperAdminProtectedRoute />}> */}
+          <Route element={<DashoardLayout />}>
+            <Route path="/dashboard" element={<ClientDashboardPage />} />
+          </Route>
+          {/* </Route> */}
+        </Routes>
+      </BrowserRouter>
+
+      <Toaster
+        position="top-center"
+        gutter={12}
+        containerStyle={{ margin: "8px" }}
+        toastOptions={{
+          success: {
+            duration: 3000,
+          },
+          error: {
+            duration: 3000,
+          },
+          style: {
+            fontSize: "16px",
+            maxWidth: "500px",
+            padding: "16px 24px",
+            backgroundColor: "white",
+            color: "grey",
+          },
+        }}
+      />
+    </QueryClientProvider>
   );
 };
 
