@@ -46,7 +46,9 @@ const UserProfile = () => {
       });
 
       // Set overall verified status
-      setOverallVerified(!!profileData.cnic && user.email_confirmed_at !== null);
+      setOverallVerified(
+        !!profileData.cnic && user.email_confirmed_at !== null
+      );
     } catch (error) {
       console.error("Error fetching user profile:", error.message);
     }
@@ -92,7 +94,7 @@ const UserProfile = () => {
       toast.success("Profile updated successfully");
 
       // Reload the component by fetching updated profile data
-      fetchUserProfile();  // Re-fetch user profile after update
+      fetchUserProfile(); // Re-fetch user profile after update
     } catch (error) {
       console.error("Error updating profile:", error.message);
       toast.error("Failed to update profile");

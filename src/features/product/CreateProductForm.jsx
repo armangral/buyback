@@ -138,6 +138,12 @@ export default function CreateProductForm() {
 
     setLoading(true); // Show loading spinner
     try {
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+      if (userError) throw userError;
+
       // Step 1: Upload images to Supabase storage
       const uploadedImageUrls = await handleImageUpload(images);
 
@@ -157,6 +163,7 @@ export default function CreateProductForm() {
             price: estimatedprice,
             images: uploadedImageUrls, // Store image URLs in the table
             approved_product: false, // Set approved_product to false initially
+            user_id: user.id,
           },
         ]);
 

@@ -20,7 +20,7 @@ export function useSignin() {
         const { data: userRoleData, error } = await supabase
           .from("users")
           .select("role")
-          .eq("id", user.id)  // Use the user.id to query role
+          .eq("id", user.id) // Use the user.id to query role
           .single();
 
         if (error) {
@@ -29,6 +29,7 @@ export function useSignin() {
         }
 
         const userRole = userRoleData?.role;
+        console.log("roles", userRole);
 
         // Redirect based on the user's role
         if (userRole === "admin") {
@@ -47,5 +48,5 @@ export function useSignin() {
     },
   });
 
-  return { signin, isLoading };  // Renamed `login` to `signin` here
+  return { signin, isLoading }; // Renamed `login` to `signin` here
 }

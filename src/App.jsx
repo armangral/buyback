@@ -11,6 +11,10 @@ import AdminLayout from "./layouts/AdminLayout";
 import UserProfile from "./pages/user/userProfiling/userProfile";
 import BuybackMarketplace from "./pages/user/marketplace/BuybackMarketplace";
 import ProductList from "./pages/admin/productList/productList";
+import AdminDashboard from "./pages/admin/dashboard";
+import AdminProtectedRoute from "./ui/AdminProtectedRoute";
+import ProtectedRoute from "./ui/ProtectedRoute";
+import MyProducts from "./pages/pages/MyProducts";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,19 +34,23 @@ const App = () => {
           <Route path="/signin" element={<SigninPage />} />
           <Route path="/signup" element={<SignUpPage />} />
 
-          {/* <Route element={<SuperAdminProtectedRoute />}> */}
+          {/* <Route element={<ProtectedRoute />}> */}
           <Route element={<DashoardLayout />}>
             <Route path="/users/dashboard" element={<ClientDashboardPage />} />
             <Route path="/users/products/create" element={<AddProductPage />} />
+            <Route path="/users/products/all" element={<MyProducts />} />
 
             <Route path="/users/profile" element={<UserProfile />} />
             <Route path="/users/marketplace" element={<BuybackMarketplace />} />
+            {/* </Route> */}
           </Route>
-          {/* </Route> */}
+          {/* <Route element={<AdminProtectedRoute />}> */}
           <Route element={<AdminLayout />}>
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/users/all" element={<UsersPage />} />
             <Route path="/admin/products" element={<BuybackMarketplace />} />
             <Route path="/admin/products/manage" element={<ProductList />} />
+            {/* </Route> */}
           </Route>
         </Routes>
       </BrowserRouter>

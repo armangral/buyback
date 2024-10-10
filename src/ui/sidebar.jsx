@@ -34,6 +34,7 @@ import { LuBookKey } from "react-icons/lu";
 import { HiOutlineDocumentReport, HiShoppingCart } from "react-icons/hi";
 import { PiDevicesFill } from "react-icons/pi";
 import { FaUserCog } from "react-icons/fa";
+import { useLogout } from "src/features/auth/useLogout";
 
 const AdminLinkItems = [
   {
@@ -180,7 +181,7 @@ const NavItem = ({ icon, children, to, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, user, ...rest }) => {
-  //   const { logout } = useLogout();
+  const { logout } = useLogout();
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -249,7 +250,7 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
             >
               <MenuDivider />
               <MenuItem>
-                <RiLogoutBoxRLine className="mr-2" />
+                <RiLogoutBoxRLine className="mr-2" onClick={() => logout()} />
                 Sign out
               </MenuItem>
             </MenuList>

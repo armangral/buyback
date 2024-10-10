@@ -48,6 +48,8 @@ import { HiShoppingCart } from "react-icons/hi";
 import { BsFillCartDashFill, BsFillCartPlusFill } from "react-icons/bs";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { RiLuggageCartFill } from "react-icons/ri";
+import { SiSimpleanalytics } from "react-icons/si";
+import { useLogout } from "src/features/auth/useLogout";
 
 const LinkItems = [
   {
@@ -84,6 +86,9 @@ const SidebarContent = ({ onClose, user, ...rest }) => {
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
+      <NavItem icon={SiSimpleanalytics} to="/admin/dashboard">
+        Dashboard
+      </NavItem>
       {LinkItems.map((link) => (
         <Box key={link.name} mt={4}>
           <Flex
@@ -176,7 +181,11 @@ const NavItem = ({ icon, children, to, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, user, ...rest }) => {
-  //   const { logout } = useLogout();
+  const { logout } = useLogout();
+
+  const handeleLogout = () => {
+    logout();
+  };
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -228,11 +237,6 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
                   ml="2"
                 >
                   <Text fontSize="sm">{user?.username || "-"}</Text>
-                  <Text fontSize="xs" color="gray.600">
-                    {user?.role === "admin" && user?.is_super_admin
-                      ? "Super Admin"
-                      : user?.role === "admin" && "Admin"}
-                  </Text>
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>
                   <FiChevronDown />
@@ -245,7 +249,7 @@ const MobileNav = ({ onOpen, user, ...rest }) => {
             >
               <MenuDivider />
               <MenuItem>
-                <RiLogoutBoxRLine className="mr-2" />
+                <RiLogoutBoxRLine className="mr-2" onClick={handeleLogout} />
                 Sign out
               </MenuItem>
             </MenuList>

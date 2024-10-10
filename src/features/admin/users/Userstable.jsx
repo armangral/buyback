@@ -28,7 +28,7 @@ const Userstable = () => {
       // Fetch users data
       const { data: usersData, error: usersError } = await supabase
         .from("users")
-        .select("email, id");
+        .select("*");
 
       if (usersError) throw usersError;
 
@@ -36,12 +36,17 @@ const Userstable = () => {
       const combinedData = usersData.map((user) => ({
         email: user.email,
         uid: user.id.slice(0, 4), // Show first 4 characters of the UID
-        name: "N/A",
-        cnic: "N/A",
+        name: user.name,
+        cnic: user.cnic,
         isVerified: user.email && user.id ? "No" : "N/A", // Default verification logic
       }));
 
-      setUsers(combinedData);
+      const filtereddata = combinedData.filter(
+        (data) => data.email !== "abdulrehmanmangral86@gmail.com"
+      );
+      console.log("combined data", filtereddata);
+
+      setUsers(filtereddata);
     } catch (error) {
       console.error("Error fetching users:", error);
     } finally {
