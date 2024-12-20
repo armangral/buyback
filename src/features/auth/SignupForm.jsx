@@ -9,12 +9,15 @@ import {
 } from "@chakra-ui/react";
 import { useSignup } from "./useSignup";
 import PasswordInput from "src/ui/PasswordInput";
+import { useNavigate } from "react-router-dom";
+
 
 const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signup, isPending: isLoading } = useSignup();
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   // Regex for email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,6 +48,7 @@ const SignupForm = () => {
         setEmail("");
         setPassword("");
         setErrors({});
+        navigate("/signin");
       },
     });
   };

@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  web:
+    image: fareh/buyback
+    container_name: buyback-web
+    ports:
+      - "5173:80" 
+    environment:
+      - VITE_SUPABASE_URL=https://kkoowdygfbvolkkdttov.supabase.co
+      - VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtrb293ZHlnZmJ2b2xra2R0dG92Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg1MzUxNDksImV4cCI6MjA0NDExMTE0OX0.mpCLEWbWNLzYIDMamvkEmuWnIj_gYdsFa6btfL21vbo
+    restart: always
